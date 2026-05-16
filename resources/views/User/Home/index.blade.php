@@ -1,0 +1,350 @@
+@extends('User.Layouts.master')
+
+@section('title', 'VastraHub — Home')
+
+@section('content')
+    <!-- Home content goes here -->
+
+    <!-- ══════════════════════ HERO ══════════════════════ -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-8 col-xl-7">
+                    <div class="hero-tag">SS 2026 Collection</div>
+                    <h1 class="hero-title">Redefine<br>Your <em>Fashion</em><br>Story.</h1>
+                    <p class="hero-sub">Curated pieces for those who see clothing as an extension of their identity. Be
+                        iconic.</p>
+                    <div class="hero-ctas">
+                        <a href="#products" class="btn-hero-primary">Shop Now</a>
+                        <a href="#categories" class="btn-hero-outline">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="stat-num">12<em>k+</em></div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-num">4<em>k+</em></div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-num">98<em>%</em></div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-num">6<em>y+</em></div>
+                        <div class="stat-label">Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════ CATEGORIES ══════════════════════ -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="section-label">Discover</span>
+                    <h2 class="section-title">Shop by <em>Category</em></h2>
+                    <div class="title-line"></div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-end" data-aos="fade-left">
+                    <p class="section-sub">From tailored classics to bold streetwear — every style, every season.</p>
+                </div>
+            </div>
+            <div class="cat-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="cat-card">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop"
+                        alt="Women's Wear" loading="lazy" />
+                    <div class="cat-overlay">
+                        <span class="cat-label">Category 01</span>
+                        <div class="cat-title">Women's<br>Wear</div>
+                        <a href="#products" class="cat-cta">
+                            <div class="line"></div>Shop Now
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=600&q=80&auto=format&fit=crop"
+                        alt="Men's Wear" loading="lazy" />
+                    <div class="cat-overlay">
+                        <span class="cat-label">Category 02</span>
+                        <div class="cat-title">Men's<br>Wear</div>
+                        <a href="#products" class="cat-cta">
+                            <div class="line"></div>Shop Now
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600&q=80&auto=format&fit=crop"
+                        alt="Streetwear" loading="lazy" />
+                    <div class="cat-overlay">
+                        <span class="cat-label">Category 03</span>
+                        <div class="cat-title">Street<br>wear</div>
+                        <a href="#products" class="cat-cta">
+                            <div class="line"></div>Shop Now
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-card">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80&auto=format&fit=crop"
+                        alt="Accessories" loading="lazy" />
+                    <div class="cat-overlay">
+                        <span class="cat-label">Category 04</span>
+                        <div class="cat-title">Acces<br>sories</div>
+                        <a href="#products" class="cat-cta">
+                            <div class="line"></div>Shop Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ PRODUCTS ══════════════════════ -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="section-label">Trending Now</span>
+                    <h2 class="section-title">Featured <em>Picks</em></h2>
+                    <div class="title-line"></div>
+                </div>
+            </div>
+            <div class="filter-tabs mb-5" data-aos="fade-up">
+                <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+                <button class="filter-btn" onclick="filterProducts('women', this)">Women</button>
+                <button class="filter-btn" onclick="filterProducts('men', this)">Men</button>
+                <button class="filter-btn" onclick="filterProducts('street', this)">Streetwear</button>
+                <button class="filter-btn" onclick="filterProducts('acc', this)">Accessories</button>
+            </div>
+            <div class="row g-4" id="productsGrid">
+                <!-- JS populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ NEW ARRIVAL ══════════════════════ -->
+    <section class="arrival-section" id="arrival">
+        <div class="arrival-inner">
+            <div class="arrival-img" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=900&q=85&auto=format&fit=crop"
+                    alt="New Arrival" loading="lazy" />
+            </div>
+            <div class="arrival-content" data-aos="fade-left">
+                <div class="arrival-season">New Arrival · Spring 2026</div>
+                <h2 class="arrival-title">Step Into<br>The <em>New</em><br>Season.</h2>
+                <p class="arrival-desc">Our latest collection blends fluid silhouettes with timeless materials.
+                    Effortlessly modern, endlessly wearable.</p>
+                <a href="#products" class="btn-arrival">Explore The Drop <i
+                        class="fa-solid fa-arrow-right ms-2"></i></a>
+                <div class="arrival-offer mt-5">
+                    <div class="offer-pct">30%</div>
+                    <div class="offer-text">Off on first order · Use code VOID30</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ WHY US ══════════════════════ -->
+    <section class="whyus-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-label">Our Promise</span>
+                <h2 class="section-title">Why Choose <em>VØID</em></h2>
+                <div class="title-line mx-auto"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div class="feature-title">Free Shipping</div>
+                        <p class="feature-desc">Complimentary delivery on all orders above ₹2,999. Fast & reliable.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="feature-title">Secure Payment</div>
+                        <p class="feature-desc">256-bit SSL encrypted checkout. Your data stays protected.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>
+                        <div class="feature-title">Premium Quality</div>
+                        <p class="feature-desc">Ethically sourced fabrics. Crafted for longevity and style.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                        <div class="feature-title">Easy Returns</div>
+                        <p class="feature-desc">Hassle-free 30-day returns. No questions asked policy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ TESTIMONIALS ══════════════════════ -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="section-label">Reviews</span>
+                    <h2 class="section-title" style="color:var(--white)">What They <em>Say</em></h2>
+                    <div class="title-line"></div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="testimonial-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <div class="testi-quote">"</div>
+                        <p class="testi-text">VØID is the only brand that makes me feel like myself. The quality is
+                            unmatched and every piece feels like it was made for me. Absolutely obsessed.</p>
+                        <div class="testi-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80&auto=format&fit=crop&crop=face"
+                                class="testi-avatar" alt="Sofia" />
+                            <div>
+                                <div class="testi-name">Sofia M.</div>
+                                <div class="testi-loc">Mumbai, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <div class="testi-quote">"</div>
+                        <p class="testi-text">The new arrivals collection is fire. Delivery was super fast and
+                            packaging felt luxurious. Will 100% be ordering again. VØID is a lifestyle.</p>
+                        <div class="testi-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&auto=format&fit=crop&crop=face"
+                                class="testi-avatar" alt="Aryan" />
+                            <div>
+                                <div class="testi-name">Aryan K.</div>
+                                <div class="testi-loc">Delhi, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <div class="testi-quote">"</div>
+                        <p class="testi-text">I've tried so many fashion brands but VØID hits differently. The fabrics
+                            are incredible and the sizing is perfect. Already recommended to everyone.</p>
+                        <div class="testi-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&auto=format&fit=crop&crop=face"
+                                class="testi-avatar" alt="Priya" />
+                            <div>
+                                <div class="testi-name">Priya S.</div>
+                                <div class="testi-loc">Bangalore, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ GALLERY ══════════════════════ -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-label">@voidfashion</span>
+                <h2 class="section-title">Style <em>Gallery</em></h2>
+                <div class="title-line mx-auto"></div>
+            </div>
+        </div>
+        <div class="gallery-grid">
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="gallery-item"><img
+                        src="https://images.unsplash.com/photo-1566206091558-7f218b696731?w=600&q=80&auto=format&fit=crop"
+                        alt="Gallery" loading="lazy" />
+                    <div class="gallery-overlay"><i class="fa-brands fa-instagram gallery-icon"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ NEWSLETTER ══════════════════════ -->
+    <section class="newsletter-section" id="newsletter">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-7" data-aos="fade-up">
+                    <span class="section-label">Stay in the Loop</span>
+                    <h2 class="newsletter-title">Join the <em>VØID</em><br>Inner Circle.</h2>
+                    <p class="newsletter-sub">Get early access to drops, exclusive offers, and style inspiration
+                        delivered straight to your inbox.</p>
+                    <div class="newsletter-form mx-auto" style="max-width:480px">
+                        <input type="email" class="newsletter-input" placeholder="your@email.com"
+                            id="emailInput" />
+                        <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                    <p class="newsletter-privacy mt-3">No spam, ever. Unsubscribe anytime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endsection
