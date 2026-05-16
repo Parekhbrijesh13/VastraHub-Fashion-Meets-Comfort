@@ -74,19 +74,24 @@
                     <p class="section-sub">From tailored classics to bold streetwear — every style, every season.</p>
                 </div>
             </div>
+
             <div class="cat-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="cat-card">
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop"
-                        alt="Women's Wear" loading="lazy" />
-                    <div class="cat-overlay">
-                        <span class="cat-label">Category 01</span>
-                        <div class="cat-title">Women's<br>Wear</div>
-                        <a href="#products" class="cat-cta">
-                            <div class="line"></div>Shop Now
-                        </a>
+                @foreach ($categories as $category)
+                    <div class="cat-card">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop"
+                            alt="Women's Wear" loading="lazy" />
+                        <div class="cat-overlay">
+                            <span class="cat-label">Category {{ $category->id }}</span>
+                            <div class="cat-title">{{ $category->name }}</div>
+                            <a href="#products" class="cat-cta">
+                                <div class="line"></div>Shop Now
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="cat-card">
+                @endforeach
+
+
+                {{-- <div class="cat-card">
                     <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=600&q=80&auto=format&fit=crop"
                         alt="Men's Wear" loading="lazy" />
                     <div class="cat-overlay">
@@ -118,7 +123,7 @@
                             <div class="line"></div>Shop Now
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -158,8 +163,7 @@
                 <h2 class="arrival-title">Step Into<br>The <em>New</em><br>Season.</h2>
                 <p class="arrival-desc">Our latest collection blends fluid silhouettes with timeless materials.
                     Effortlessly modern, endlessly wearable.</p>
-                <a href="#products" class="btn-arrival">Explore The Drop <i
-                        class="fa-solid fa-arrow-right ms-2"></i></a>
+                <a href="#products" class="btn-arrival">Explore The Drop <i class="fa-solid fa-arrow-right ms-2"></i></a>
                 <div class="arrival-offer mt-5">
                     <div class="offer-pct">30%</div>
                     <div class="offer-text">Off on first order · Use code VOID30</div>
@@ -337,8 +341,7 @@
                     <p class="newsletter-sub">Get early access to drops, exclusive offers, and style inspiration
                         delivered straight to your inbox.</p>
                     <div class="newsletter-form mx-auto" style="max-width:480px">
-                        <input type="email" class="newsletter-input" placeholder="your@email.com"
-                            id="emailInput" />
+                        <input type="email" class="newsletter-input" placeholder="your@email.com" id="emailInput" />
                         <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscribe</button>
                     </div>
                     <p class="newsletter-privacy mt-3">No spam, ever. Unsubscribe anytime.</p>
