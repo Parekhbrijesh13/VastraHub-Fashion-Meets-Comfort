@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VØID Admin — Command Center</title>
+    <title>VastraHub Admin — @yield('title','Master')</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap"
         rel="stylesheet" />
@@ -37,6 +37,9 @@
             <a class="nav-item" onclick="showPage('orders', this)">
                 <i class="fa-solid fa-bag-shopping"></i> Orders
                 <span class="nav-badge red">12</span>
+            </a>
+            <a class="nav-item" href="{{ route('admin.category.index') }}">
+                <i class="fa-solid fa-layer-group"></i> Categories
             </a>
             <a class="nav-item" onclick="showPage('products', this)">
                 <i class="fa-solid fa-shirt"></i> Products
@@ -101,6 +104,12 @@
             </div>
         </div>
     </header>
+
+    <div class="main">
+        <div class="page active">
+            @yield('content')
+        </div>
+    </div>
 
     <script src="{{asset('assets/js/admin.js')}}"></script>
 </body>
