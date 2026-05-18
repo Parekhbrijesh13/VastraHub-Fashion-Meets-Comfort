@@ -75,7 +75,7 @@
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </button>
-                <a class="nav-icon-btn" href="{{  }}">
+                <a class="nav-icon-btn" href="{{ route('login') }}">
                     <i class="fa-solid fa-user"></i>
                 </a>
             </div>

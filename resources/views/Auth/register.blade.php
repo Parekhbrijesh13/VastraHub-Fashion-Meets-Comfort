@@ -12,6 +12,39 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
     <link href="{{ asset('assets/css/register.css') }}" rel="stylesheet" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <style>
+        .field {
+            position: relative;
+        }
+
+        .error-text {
+            color: red;
+            font-size: 13px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #222;
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-alert.show {
+            display: block;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -86,30 +119,30 @@
                 <div class="heading-sub">Just three fields. That's all it takes to join.</div>
             </div>
 
-            <form id="registerForm" novalidate>
+            <form id="registerForm" data-register-url="{{ url('api/register') }}" data-login-url="{{ route('login') }}">
                 <div class="fields">
                     <div class="field">
                         <label class="field-label" for="name">Full Name</label>
-                        <input class="field-input" type="text" id="name" placeholder="Aryan Shah"
+                        <input class="field-input" type="text" name="name" id="name" placeholder="Aryan Shah"
                             autocomplete="name" />
                         <i class="fa-regular fa-user field-icon"></i>
-                        <div class="field-err" id="nameErr">Please enter your full name.</div>
+                        <span class="field-err error-text name_error"></span>
                     </div>
 
                     <div class="field">
                         <label class="field-label" for="email">Email Address</label>
-                        <input class="field-input" type="email" id="email" placeholder="you@example.com"
-                            autocomplete="email" />
+                        <input class="field-input" name="email" type="email" id="email"
+                            placeholder="you@example.com" autocomplete="email" />
                         <i class="fa-regular fa-envelope field-icon"></i>
-                        <div class="field-err" id="emailErr">Please enter a valid email.</div>
+                        <span class="field-err error-text email_error"></span>
                     </div>
 
                     <div class="field">
                         <label class="field-label" for="password">Password</label>
-                        <input class="field-input" type="password" id="password" placeholder="Min. 8 characters"
-                            autocomplete="new-password" />
+                        <input class="field-input" type="password" name="password" id="password"
+                            placeholder="Min. 8 characters" autocomplete="new-password" />
                         <i class="fa-regular fa-eye field-icon" id="eyeIcon" onclick="togglePw()"></i>
-                        <div class="field-err" id="passErr">Password must be at least 8 characters.</div>
+                        <span class="field-err error-text password_error"></span>
 
                         <div class="pw-strength" id="pwStrength">
                             <div class="pw-bars">
@@ -153,6 +186,67 @@
             <span class="footer-copy">© 2026 VØID</span>
         </div>
     </div>
+
+    <div class="custom-alert" id="customAlert">
+        <span id="alertMessage"></span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+
+    <script>
+        function showAlert(message) {
+            $("#alertMessage").text(message);
+
+            $("#customAlert").addClass("show");
+
+            setTimeout(function() {
+                $("#customAlert").removeClass("show");
+            }, 3000);
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on('submit', '#registerForm', function(e) {
+
+                e.preventDefault();
+                let data = $(this).serialize();
+
+                $.ajax({
+                    url: '/api/register',
+                    method: 'POST',
+                    data: data,
+
+                    success: function(response) {
+                        showAlert('Registration successful! Please login to continue.');
+                        window.location.href = "{{ route('login') }}";
+                    },
+                    error: function(response) {
+
+                        $('.error-text').text('');
+                        if (response.status == 422) {
+                            let errors = response.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                $('.' + key + '_error').text(value[0]);
+                            });
+                        } else {
+                            showAlert('Something went wrong');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

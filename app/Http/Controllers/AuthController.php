@@ -22,7 +22,7 @@ class AuthController extends Controller
         $validateuser = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:8'
         ]);
 
         if($validateuser->fails()){
@@ -30,7 +30,7 @@ class AuthController extends Controller
                 'status' => 400,
                 'message' => 'validation error',
                 'errors' => $validateuser->messages()
-            ]);
+            ], 422);
         }
 
         $user = User::create([
@@ -43,7 +43,7 @@ class AuthController extends Controller
             'status' => 200,
             'message' => 'user created successfully',
             'user' => $user
-        ]);
+        ], 201);
 
     }
 
