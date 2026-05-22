@@ -136,6 +136,7 @@ function renderProducts(filter) {
         )
         .join("");
     AOS.refresh();
+    refreshLuxuryReveals();
 }
 
 function filterProducts(f, btn) {
@@ -221,6 +222,7 @@ function subscribeNewsletter() {
 function initHeroCanvas() {
     const canvas = document.getElementById("particleCanvas");
     if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = canvas.getContext("2d");
     let W, H, particles = [];
@@ -292,6 +294,7 @@ function initHeroParallax() {
     const hero     = document.querySelector(".hero");
     const modelImg = document.querySelector(".hero-model-img");
     if (!hero || !modelImg) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     hero.addEventListener("mousemove", (e) => {
         const rect = hero.getBoundingClientRect();
@@ -305,6 +308,164 @@ function initHeroParallax() {
     });
 }
 
+let luxuryRevealObserver = null;
+const luxuryRevealSeen = new WeakSet();
+
+function refreshLuxuryReveals() {
+    const items = document.querySelectorAll(
+        ".cat-card, .product-card, .feature-card, .testimonial-card, .gallery-item, .arrival-img, .arrival-offer, .newsletter-form",
+    );
+
+    items.forEach((el, index) => {
+        if (luxuryRevealSeen.has(el)) return;
+        luxuryRevealSeen.add(el);
+        el.classList.add("lux-reveal");
+        el.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
+
+        if (luxuryRevealObserver) {
+            luxuryRevealObserver.observe(el);
+        } else {
+            el.classList.add("in-view");
+        }
+    });
+}
+
+function initLuxuryReveals() {
+    if (!("IntersectionObserver" in window)) {
+        refreshLuxuryReveals();
+        return;
+    }
+
+    luxuryRevealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("in-view");
+                luxuryRevealObserver.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -8% 0px",
+        },
+    );
+
+    refreshLuxuryReveals();
+}
+
+function initNavInteractions() {
+    const nav = document.getElementById("mainNav");
+    const links = Array.from(document.querySelectorAll(".navbar-nav .nav-link"));
+    if (!nav || links.length === 0) return;
+
+    function sectionForLink(link) {
+        const href = link.getAttribute("href");
+        if (!href || !href.startsWith("#")) return null;
+        const id = href === "#" ? "home" : href.slice(1);
+        return document.getElementById(id);
+    }
+
+    function setActive(sectionId) {
+        links.forEach((link) => {
+            const href = link.getAttribute("href");
+            const matchesHome = sectionId === "home" && href === "#";
+            link.classList.toggle("active", matchesHome || href === `#${sectionId}`);
+        });
+    }
+
+    links.forEach((link) => {
+        const target = sectionForLink(link);
+        if (!target) return;
+
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            setActive(target.id);
+
+            const collapse = document.getElementById("navMenu");
+            if (collapse && collapse.classList.contains("show") && window.bootstrap) {
+                bootstrap.Collapse.getOrCreateInstance(collapse).hide();
+            }
+        });
+    });
+
+    const sections = Array.from(new Set(links.map(sectionForLink).filter(Boolean)));
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            });
+        },
+        {
+            threshold: 0.08,
+            rootMargin: "-36% 0px -48% 0px",
+        },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    setActive("home");
+}
+
+function initLuxuryCursor() {
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    const cursor = document.getElementById("cursor");
+    const ring = document.getElementById("cursorRing");
+    if (!cursor || !ring) return;
+
+    document.body.classList.add("cursor-ready", "cursor-hidden");
+
+    let mx = 0;
+    let my = 0;
+    let rx = 0;
+    let ry = 0;
+    let scale = 1;
+    let targetScale = 1;
+    const interactiveSelector = "a, button, input, textarea, select, .product-card, .cat-card, .gallery-item, .arrival-img, .hero-right";
+    const visualSelector = ".product-card, .cat-card, .gallery-item, .arrival-img, .hero-right";
+
+    document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.style.left = `${mx}px`;
+        cursor.style.top = `${my}px`;
+        document.body.classList.remove("cursor-hidden");
+    });
+
+    document.addEventListener("mouseover", (e) => {
+        const target = e.target.closest(interactiveSelector);
+        if (!target) return;
+
+        const isVisual = target.matches(visualSelector);
+        targetScale = isVisual ? 2.05 : 1.55;
+        cursor.classList.add("is-hovering");
+        ring.classList.add("is-hovering");
+        ring.classList.toggle("is-viewing", isVisual);
+    });
+
+    document.addEventListener("mouseout", (e) => {
+        const target = e.target.closest(interactiveSelector);
+        if (!target || target.contains(e.relatedTarget)) return;
+
+        targetScale = 1;
+        cursor.classList.remove("is-hovering");
+        ring.classList.remove("is-hovering", "is-viewing");
+    });
+
+    window.addEventListener("blur", () => document.body.classList.add("cursor-hidden"));
+    document.addEventListener("mouseleave", () => document.body.classList.add("cursor-hidden"));
+
+    (function animateRing() {
+        rx += (mx - rx) * 0.14;
+        ry += (my - ry) * 0.14;
+        scale += (targetScale - scale) * 0.18;
+        ring.style.left = `${rx}px`;
+        ring.style.top = `${ry}px`;
+        ring.style.transform = `translate(-50%,-50%) scale(${scale})`;
+        requestAnimationFrame(animateRing);
+    })();
+}
+
 // ── Init ──
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -316,11 +477,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // AOS
     AOS.init({
-        duration: 800,
+        duration: 950,
         easing: "ease-out-cubic",
         once: true,
-        offset: 60,
+        offset: 80,
     });
+
+    initLuxuryReveals();
 
     // Products
     renderProducts("all");
@@ -349,44 +512,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // ── New Canvas Particles + Parallax ──
     initHeroCanvas();
     initHeroParallax();
+    initNavInteractions();
+    initLuxuryCursor();
 
     // Navbar scroll
     const nav = document.getElementById("mainNav");
     if (nav) {
         window.addEventListener("scroll", () => {
             nav.classList.toggle("scrolled", window.scrollY > 60);
-        });
-    }
-
-    // Custom Cursor
-    const cursor = document.getElementById("cursor");
-    const ring   = document.getElementById("cursorRing");
-    if (cursor && ring) {
-        let mx = 0, my = 0, rx = 0, ry = 0;
-
-        document.addEventListener("mousemove", (e) => {
-            mx = e.clientX;
-            my = e.clientY;
-            cursor.style.left = mx + "px";
-            cursor.style.top  = my + "px";
-        });
-
-        (function animRing() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            ring.style.left = rx + "px";
-            ring.style.top  = ry + "px";
-            requestAnimationFrame(animRing);
-        })();
-
-        document.querySelectorAll("a, button").forEach((el) => {
-            el.addEventListener("mouseenter", () => {
-                ring.style.transform = "translate(-50%,-50%) scale(1.6)";
-            });
-            el.addEventListener("mouseleave", () => {
-                ring.style.transform = "translate(-50%,-50%) scale(1)";
-            });
-        });
+        }, { passive: true });
     }
 
 });

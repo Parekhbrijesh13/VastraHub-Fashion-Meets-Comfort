@@ -5,8 +5,6 @@
 @section('content')
     <!-- Home content goes here -->
 
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
     <!-- ══════════ HERO ══════════ -->
     <section class="hero" id="home">
         <canvas id="particleCanvas"></canvas>
@@ -15,48 +13,74 @@
         <div class="hero-left">
             <div class="hero-left-inner">
 
+                <!-- TAG -->
                 <div class="hero-tag">
                     <span class="hero-tag-dot"></span>
                     <span>SS 2026 Collection</span>
                 </div>
 
+                <!-- TITLE -->
                 <h1 class="hero-title">
                     Where <em>Style</em><br>
                     Meets<br>
-                    <span class="hero-title-outline">Elegance.</span>
+                    <span class="hero-title-outline">
+                        Elegance.
+                    </span>
                 </h1>
 
+                <!-- LINE -->
                 <div class="hero-separator-line"></div>
-
+                <!-- SUBTITLE -->
                 <p class="hero-sub">
                     Curated pieces for women who see fashion as an expression of power.
                     Be bold. Be iconic. Be <em>you</em>.
                 </p>
 
+                <!-- BUTTONS -->
                 <div class="hero-ctas">
                     <a href="#products" class="btn-hero-primary">
                         <span>Shop Now</span>
-                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </a>
                     <a href="#categories" class="btn-hero-outline">
                         Explore Collection
                     </a>
                 </div>
 
+                <!-- STATS -->
                 <div class="hero-stats">
-                    <div>
-                        <div class="hero-stat-num">12k<span>+</span></div>
-                        <div class="hero-stat-lbl">Happy Clients</div>
+
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-num">
+                            12k<span>+</span>
+                        </div>
+
+                        <div class="hero-stat-lbl">
+                            Happy Clients
+                        </div>
                     </div>
+
                     <div class="hero-stat-divider"></div>
-                    <div>
-                        <div class="hero-stat-num">4k<span>+</span></div>
-                        <div class="hero-stat-lbl">Styles</div>
+
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-num">
+                            4k<span>+</span>
+                        </div>
+
+                        <div class="hero-stat-lbl">
+                            Styles
+                        </div>
                     </div>
+
                     <div class="hero-stat-divider"></div>
-                    <div>
-                        <div class="hero-stat-num">98<span>%</span></div>
-                        <div class="hero-stat-lbl">Satisfaction</div>
+                    <div class="hero-stat-item">
+                        <div class="hero-stat-num">
+                            98<span>%</span>
+                        </div>
+
+                        <div class="hero-stat-lbl">
+                            Satisfaction
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,8 +94,8 @@
             <div class="hero-deco-line hero-deco-line-2"></div>
 
             <div class="hero-model-wrap">
-                <img src="{{ asset('assets/NewHero.jpeg') }}"
-                    alt="VastraHub Fashion Model" class="hero-model-img" id="modelImg" />
+                <img src="{{ asset('assets/hero3.jpeg') }}" alt="VastraHub Fashion Model" class="hero-model-img"
+                    id="modelImg" />
                 <div class="hero-model-glow"></div>
             </div>
 
