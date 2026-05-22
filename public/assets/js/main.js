@@ -153,10 +153,7 @@ function addToCart(id) {
     if (existing) {
         existing.qty++;
     } else {
-        cart.push({
-            ...p,
-            qty: 1,
-        });
+        cart.push({ ...p, qty: 1 });
     }
     updateCartUI();
     showToast(`${p.name} added to bag ✓`);
@@ -169,8 +166,7 @@ function updateCartUI() {
     const itemsEl = document.getElementById("cartItems");
     const footerEl = document.getElementById("cartFooter");
     if (cart.length === 0) {
-        itemsEl.innerHTML =
-            '<div class="cart-empty-msg">Your bag is empty</div>';
+        itemsEl.innerHTML = '<div class="cart-empty-msg">Your bag is empty</div>';
         footerEl.style.display = "none";
         return;
     }
@@ -217,15 +213,105 @@ function subscribeNewsletter() {
         showToast("Please enter a valid email.");
         return;
     }
-    showToast("Welcome to VØID Inner Circle ✓");
+    showToast("Welcome to VastraHub Inner Circle ✓");
     document.getElementById("emailInput").value = "";
+}
+
+// ── Hero Canvas Particles ──
+function initHeroCanvas() {
+    const canvas = document.getElementById("particleCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let W, H, particles = [];
+
+    function resize() {
+        const hero = document.querySelector(".hero");
+        W = canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+        H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+    }
+
+    function Particle() {
+        this.reset = function () {
+            this.x       = Math.random() * W;
+            this.y       = H + Math.random() * 20;
+            this.r       = Math.random() * 1.5 + 0.4;
+            this.speed   = Math.random() * 0.6 + 0.25;
+            this.opacity = 0;
+            this.maxOp   = Math.random() * 0.35 + 0.1;
+            this.drift   = (Math.random() - 0.5) * 0.3;
+            this.life    = 0;
+            this.maxLife = Math.random() * 220 + 120;
+        };
+        this.reset();
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.floor(W / 14);
+        for (let i = 0; i < count; i++) {
+            const p = new Particle();
+            // stagger initial positions so they don't all spawn at bottom
+            p.y    = Math.random() * H;
+            p.life = Math.random() * p.maxLife;
+            particles.push(p);
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach((p) => {
+            p.life++;
+            p.y -= p.speed;
+            p.x += p.drift;
+            const prog = p.life / p.maxLife;
+            if (prog < 0.2)       p.opacity = (prog / 0.2) * p.maxOp;
+            else if (prog > 0.75) p.opacity = ((1 - prog) / 0.25) * p.maxOp;
+            else                  p.opacity = p.maxOp;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(201,169,110,${p.opacity})`;
+            ctx.fill();
+            if (p.life >= p.maxLife || p.y < -10) p.reset();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    resize();
+    initParticles();
+    animate();
+
+    window.addEventListener("resize", () => {
+        resize();
+        initParticles();
+    });
+}
+
+// ── Hero Model Parallax ──
+function initHeroParallax() {
+    const hero     = document.querySelector(".hero");
+    const modelImg = document.querySelector(".hero-model-img");
+    if (!hero || !modelImg) return;
+
+    hero.addEventListener("mousemove", (e) => {
+        const rect = hero.getBoundingClientRect();
+        const xPct = (e.clientX - rect.left)  / rect.width  - 0.5;
+        const yPct = (e.clientY - rect.top)   / rect.height - 0.5;
+        modelImg.style.transform = `scale(1.04) translate(${xPct * -8}px, ${yPct * -6}px)`;
+    });
+
+    hero.addEventListener("mouseleave", () => {
+        modelImg.style.transform = "scale(1) translate(0, 0)";
+    });
 }
 
 // ── Init ──
 document.addEventListener("DOMContentLoaded", () => {
+
     // Loader
     setTimeout(() => {
-        document.getElementById("loader").classList.add("hidden");
+        const loader = document.getElementById("loader");
+        if (loader) loader.classList.add("hidden");
     }, 1800);
 
     // AOS
@@ -239,39 +325,68 @@ document.addEventListener("DOMContentLoaded", () => {
     // Products
     renderProducts("all");
 
+    // ── Legacy DOM particle fallback (heroParticles div) ──
+    // Kept for backwards compatibility if canvas is not present
+    const particleContainer = document.getElementById("heroParticles");
+    if (particleContainer) {
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement("div");
+            p.classList.add("hero-particle");
+            const size = Math.random() * 4 + 1.5;
+            p.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${Math.random() * 100}%;
+                top: ${40 + Math.random() * 55}%;
+                --dur: ${6 + Math.random() * 8}s;
+                --delay: ${Math.random() * 6}s;
+                opacity: 0;
+            `;
+            particleContainer.appendChild(p);
+        }
+    }
+
+    // ── New Canvas Particles + Parallax ──
+    initHeroCanvas();
+    initHeroParallax();
+
     // Navbar scroll
     const nav = document.getElementById("mainNav");
-    window.addEventListener("scroll", () => {
-        nav.classList.toggle("scrolled", window.scrollY > 60);
-    });
+    if (nav) {
+        window.addEventListener("scroll", () => {
+            nav.classList.toggle("scrolled", window.scrollY > 60);
+        });
+    }
 
     // Custom Cursor
     const cursor = document.getElementById("cursor");
-    const ring = document.getElementById("cursorRing");
-    let mx = 0,
-        my = 0,
-        rx = 0,
-        ry = 0;
-    document.addEventListener("mousemove", (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        cursor.style.left = mx + "px";
-        cursor.style.top = my + "px";
-    });
-    (function animRing() {
-        rx += (mx - rx) * 0.12;
-        ry += (my - ry) * 0.12;
-        ring.style.left = rx + "px";
-        ring.style.top = ry + "px";
-        requestAnimationFrame(animRing);
-    })();
-    document.querySelectorAll("a,button").forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-            ring.style.transform = "translate(-50%,-50%) scale(1.6)";
-        });
-        el.addEventListener("mouseleave", () => {
-            ring.style.transform = "translate(-50%,-50%) scale(1)";
-        });
-    });
-});
+    const ring   = document.getElementById("cursorRing");
+    if (cursor && ring) {
+        let mx = 0, my = 0, rx = 0, ry = 0;
 
+        document.addEventListener("mousemove", (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+            cursor.style.left = mx + "px";
+            cursor.style.top  = my + "px";
+        });
+
+        (function animRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.left = rx + "px";
+            ring.style.top  = ry + "px";
+            requestAnimationFrame(animRing);
+        })();
+
+        document.querySelectorAll("a, button").forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+                ring.style.transform = "translate(-50%,-50%) scale(1.6)";
+            });
+            el.addEventListener("mouseleave", () => {
+                ring.style.transform = "translate(-50%,-50%) scale(1)";
+            });
+        });
+    }
+
+});

@@ -11,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
     <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet" />
-    
+
 </head>
 
 <body>
@@ -66,10 +66,10 @@
                     <div class="field-label">
                         <span>Email</span>
                     </div>
-                    <input class="field-input" type="email" id="email" placeholder="you@example.com"
+                    <input class="field-input" type="email" name="email" id="email" placeholder="you@example.com"
                         autocomplete="email" />
                     <i class="fa-regular fa-envelope field-icon"></i>
-                    <div class="field-err" id="emailErr">Please enter a valid email.</div>
+                    <span class="field-err error-text email_error"></span>
                 </div>
 
                 <div class="field">
@@ -77,10 +77,10 @@
                         <span>Password</span>
                         <a href="#" onclick="goForgot(); return false;">Forgot?</a>
                     </div>
-                    <input class="field-input" type="password" id="password" placeholder="••••••••"
+                    <input class="field-input" type="password" name="password" id="password" placeholder="••••••••"
                         autocomplete="current-password" />
                     <i class="fa-regular fa-eye field-icon" id="eyeIcon" onclick="togglePw()"></i>
-                    <div class="field-err" id="passErr">Password must be 6+ characters.</div>
+                    <span class="field-err error-text password_error"></span>
                 </div>
             </div>
 
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <!-- Forgot overlay (inline, no redirect) -->
+    {{-- <!-- Forgot overlay (inline, no redirect) -->
     <div id="forgotOverlay"
         style="display:none;position:fixed;inset:0;background:rgba(9,9,11,0.88);backdrop-filter:blur(10px);z-index:5000;display:none;align-items:center;justify-content:center;">
         <div
@@ -139,7 +139,19 @@
                 <div class="spinner"></div>
             </button>
         </div>
-    </div>
+    </div> --}}
+
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function (){
+            $(document).on('submit', '#loginForm', function (e) {
+                e.preventDefault();
+
+            });
+        });
+    </script>
 
 </body>
 

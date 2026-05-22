@@ -5,61 +5,119 @@
 @section('content')
     <!-- Home content goes here -->
 
-    <!-- ══════════════════════ HERO ══════════════════════ -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <!-- ══════════ HERO ══════════ -->
     <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <div class="row">
-                <div class="col-lg-8 col-xl-7">
-                    <div class="hero-tag">SS 2026 Collection</div>
-                    <h1 class="hero-title">Redefine<br>Your <em>Fashion</em><br>Story.</h1>
-                    <p class="hero-sub">Curated pieces for those who see clothing as an extension of their identity. Be
-                        iconic.</p>
-                    <div class="hero-ctas">
-                        <a href="#products" class="btn-hero-primary">Shop Now</a>
-                        <a href="#categories" class="btn-hero-outline">Explore Collection</a>
+        <canvas id="particleCanvas"></canvas>
+
+        <!-- LEFT -->
+        <div class="hero-left">
+            <div class="hero-left-inner">
+
+                <div class="hero-tag">
+                    <span class="hero-tag-dot"></span>
+                    <span>SS 2026 Collection</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Where <em>Style</em><br>
+                    Meets<br>
+                    <span class="hero-title-outline">Elegance.</span>
+                </h1>
+
+                <div class="hero-separator-line"></div>
+
+                <p class="hero-sub">
+                    Curated pieces for women who see fashion as an expression of power.
+                    Be bold. Be iconic. Be <em>you</em>.
+                </p>
+
+                <div class="hero-ctas">
+                    <a href="#products" class="btn-hero-primary">
+                        <span>Shop Now</span>
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="#categories" class="btn-hero-outline">
+                        Explore Collection
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-num">12k<span>+</span></div>
+                        <div class="hero-stat-lbl">Happy Clients</div>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div>
+                        <div class="hero-stat-num">4k<span>+</span></div>
+                        <div class="hero-stat-lbl">Styles</div>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div>
+                        <div class="hero-stat-num">98<span>%</span></div>
+                        <div class="hero-stat-lbl">Satisfaction</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- RIGHT -->
+        <div class="hero-right">
+            <div class="hero-deco-circle hero-deco-circle-1"></div>
+            <div class="hero-deco-circle hero-deco-circle-2"></div>
+            <div class="hero-deco-line hero-deco-line-1"></div>
+            <div class="hero-deco-line hero-deco-line-2"></div>
+
+            <div class="hero-model-wrap">
+                <img src="{{ asset('assets/NewHero.jpeg') }}"
+                    alt="VastraHub Fashion Model" class="hero-model-img" id="modelImg" />
+                <div class="hero-model-glow"></div>
+            </div>
+
+            <!-- Floating product card -->
+            <div class="hero-float-card">
+                <div class="hero-float-card-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+                <div>
+                    <div class="hero-float-card-name">New Drop</div>
+                    <div class="hero-float-card-sub">Spring Collection 2026</div>
+                </div>
+                <div class="hero-float-card-badge">₹2,499</div>
+            </div>
+
+            <!-- Floating trust badge -->
+            <div class="hero-float-trust">
+                <i class="fa-solid fa-shield-check" aria-hidden="true"></i>
+                <span>Premium Quality</span>
+            </div>
+        </div>
+
+        <!-- Scroll cue -->
         <div class="hero-scroll">
             <span>Scroll</span>
             <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- Stats Strip -->
-    <div class="stats-strip">
-        <div class="container">
-            <div class="row">
-                <div class="col-6 col-md-3">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
-                        <div class="stat-num">12<em>k+</em></div>
-                        <div class="stat-label">Happy Clients</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="stat-num">4<em>k+</em></div>
-                        <div class="stat-label">Products</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="stat-num">98<em>%</em></div>
-                        <div class="stat-label">Satisfaction</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="stat-num">6<em>y+</em></div>
-                        <div class="stat-label">Experience</div>
-                    </div>
-                </div>
-            </div>
+    <!-- ══════════ MARQUEE ══════════ -->
+    <div class="hero-marquee-strip">
+        <div class="hero-marquee-track">
+            <span>New Arrivals</span><span class="hero-marquee-dot">✦</span>
+            <span>Exclusive Drops</span><span class="hero-marquee-dot">✦</span>
+            <span>Spring 2026</span><span class="hero-marquee-dot">✦</span>
+            <span>Free Shipping Above ₹2,999</span><span class="hero-marquee-dot">✦</span>
+            <span>Premium Fabrics</span><span class="hero-marquee-dot">✦</span>
+            <span>30-Day Returns</span><span class="hero-marquee-dot">✦</span>
+            <span>New Arrivals</span><span class="hero-marquee-dot">✦</span>
+            <span>Exclusive Drops</span><span class="hero-marquee-dot">✦</span>
+            <span>Spring 2026</span><span class="hero-marquee-dot">✦</span>
+            <span>Free Shipping Above ₹2,999</span><span class="hero-marquee-dot">✦</span>
+            <span>Premium Fabrics</span><span class="hero-marquee-dot">✦</span>
+            <span>30-Day Returns</span><span class="hero-marquee-dot">✦</span>
         </div>
     </div>
+
+
 
     <!-- ══════════════════════ CATEGORIES ══════════════════════ -->
     <section class="categories-section" id="categories">

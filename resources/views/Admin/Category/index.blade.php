@@ -38,7 +38,7 @@
                     @foreach($categories as $category)
                         <tr>
                             <td>{{ $category->id }}</td>
-                            <td><img src="{{ $category->image }}" alt="{{ $category->name }}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"></td>
+                            <td><img src="#" alt="{{ $category->name }}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"></td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
                             <td><span class="badge-status green">Active</span></td>
