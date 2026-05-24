@@ -4,12 +4,168 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VastraHub Admin — @yield('title','Master')</title>
+    <title>VastraHub Admin — @yield('title', 'Master')</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap"
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" /> --}}
+    <style>
+        /* MODAL BACKDROP */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: none;
+
+            background: rgba(0, 0, 0, .7);
+
+            overflow-y: auto;
+            padding: 30px 15px;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SHOW MODAL */
+        .modal.show {
+            display: flex !important;
+        }
+
+        /* DIALOG */
+        .modal-dialog {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+        }
+
+        /* MODAL BOX */
+        .custom-modal {
+            background: #12121a;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+
+            max-height: 90vh;
+            overflow-y: auto;
+
+            animation: modalFade .25s ease;
+        }
+
+        /* ANIMATION */
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* HEADER */
+        .custom-modal .modal-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        /* BODY */
+        .custom-modal .modal-body {
+            padding: 20px;
+        }
+
+        /* FOOTER */
+        .custom-modal .modal-footer {
+            padding: 18px 20px;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        /* TITLE */
+        .custom-modal .modal-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* INPUTS */
+        .custom-modal .form-control,
+        .custom-modal .form-select,
+        .custom-modal textarea,
+        .custom-modal select,
+        .custom-modal input {
+            background: rgba(255, 255, 255, .04) !important;
+            border: 1px solid rgba(255, 255, 255, .08) !important;
+            color: white !important;
+
+            border-radius: 12px;
+            min-height: 52px;
+        }
+
+        /* TEXTAREA */
+        .custom-modal textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        /* FOCUS */
+        .custom-modal .form-control:focus,
+        .custom-modal .form-select:focus,
+        .custom-modal textarea:focus {
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, .18) !important;
+            border-color: #c9a96e !important;
+        }
+
+        /* LABELS */
+        .custom-modal .form-label {
+            color: rgba(255, 255, 255, .7);
+            font-size: .78rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        /* BUTTONS */
+        .custom-modal .btn {
+            border: none;
+            border-radius: 10px;
+
+            padding: 10px 18px;
+        }
+
+        /* CLOSE BUTTON */
+        .custom-modal .btn-secondary {
+            background: rgba(255, 255, 255, .08);
+            color: white;
+        }
+
+        /* SAVE BUTTON */
+        .custom-modal .btn-primary {
+            background: #c9a96e;
+            color: black;
+        }
+
+        /* SELECT OPTIONS */
+        .custom-modal select option {
+            background: #111;
+            color: white;
+        }
+
+        /* SCROLLBAR */
+        .custom-modal::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-modal::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .15);
+            border-radius: 10px;
+        }
+    </style>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -111,7 +267,9 @@
         </div>
     </div>
 
-    <script src="{{asset('assets/js/admin.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="{{ asset('assets/js/admin.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

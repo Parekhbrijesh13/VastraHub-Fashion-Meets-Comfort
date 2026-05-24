@@ -160,8 +160,7 @@
             <div class="cat-grid" data-aos="fade-up" data-aos-delay="100">
                 @foreach ($categories as $category)
                     <div class="cat-card">
-                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop"
-                            alt="Women's Wear" loading="lazy" />
+                        <img src="{{ Storage::url($category->image) }}" alt="Women's Wear" loading="lazy" />
                         <div class="cat-overlay">
                             <span class="cat-label">Category {{ $category->id }}</span>
                             <div class="cat-title">{{ $category->name }}</div>
@@ -222,14 +221,66 @@
             </div>
             <div class="filter-tabs mb-5" data-aos="fade-up">
                 <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
-                <button class="filter-btn" onclick="filterProducts('women', this)">Women</button>
-                <button class="filter-btn" onclick="filterProducts('men', this)">Men</button>
+                @foreach ($categories as $category)
+                    <button class="filter-btn">{{ $category->name }}</button>
+                @endforeach
+
+                {{-- <button class="filter-btn" onclick="filterProducts('men', this)">Men</button>
                 <button class="filter-btn" onclick="filterProducts('street', this)">Streetwear</button>
-                <button class="filter-btn" onclick="filterProducts('acc', this)">Accessories</button>
+                <button class="filter-btn" onclick="filterProducts('acc', this)">Accessories</button> --}}
             </div>
-            <div class="row g-4" id="productsGrid">
-                <!-- JS populated -->
-            </div>
+
+            @foreach ($categories as $category)
+                {{-- <h2 class="mb-4">{{ $category->name }}</h2> --}}
+
+                <div class="row g-4" id="productsGrid">
+
+                    @foreach ($category->products as $product)
+                        <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                            <div class="product-card">
+                                <div class="product-img-wrap">
+                                    <img src="{{ asset('assets/hero3.jpeg') }}" alt="{{ $product->name }}" loading="lazy" />
+                                    <span class="product-badge">New</span>
+
+                                    <button class="product-wishlist">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button>
+
+                                    <button class="product-quick">
+                                        Add to Bag
+                                    </button>
+
+                                </div>
+
+                                <div class="product-info">
+
+                                    <div class="product-cat">
+                                        {{ $product->category->name }}
+                                    </div>
+
+                                    <div class="product-name">
+                                        {{ $product->name }}
+                                    </div>
+
+                                    <div class="product-stars">
+                                        ★★★★☆ <span>(120)</span>
+                                    </div>
+
+                                    <div class="product-price">
+                                        <span class="original">₹</span>
+                                        {{ $product->price }}
+                                    </div>
+
+                                    <button class="btn-add-cart">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+
         </div>
     </section>
 

@@ -86,7 +86,7 @@ class CategoryController extends Controller
         $validateCategory = Validator::make($request->all(), [
 
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'slug' => 'required|unique:categories,slug,' . $id,
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'required|string',
             'status' => 'required|boolean',

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('categories', CategoryController::class);
+
 
 Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'signup']);
@@ -26,3 +27,10 @@ Route::middleware('auth:Sanctum')->group(function () {
     Route::post('logout',[AuthController::class,'destroy'])->name('api.logout');
 
 });
+
+Route::prefix('admin')->group(function () {
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('products', ProductApiController::class);
+});
+
+

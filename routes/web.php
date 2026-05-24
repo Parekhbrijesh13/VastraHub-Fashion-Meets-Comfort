@@ -39,4 +39,4 @@ Route::get('register',[AuthController::class, 'Show_register'])->name('register'
 Route::get('admin/dashboard', [AdminDashboardController ::class, 'index'])->name('admin.dashboard');
 
 Route::get('admin/category',[CategoryController::class,'index'])->name('admin.category.index');
-Route::delete('admin/category/{id}', [ApiCategoryController::class, 'destroy'])->name('admin.category.destroy');
+

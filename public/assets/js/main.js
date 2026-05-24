@@ -105,39 +105,39 @@ function stars(n) {
     return "★".repeat(n) + "☆".repeat(5 - n);
 }
 
-function renderProducts(filter) {
-    const grid = document.getElementById("productsGrid");
-    const filtered =
-        filter === "all" ? products : products.filter((p) => p.cat === filter);
-    grid.innerHTML = filtered
-        .map(
-            (p, i) => `
-    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="${(i % 4) * 80}">
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="${p.img}" alt="${p.name}" loading="lazy"/>
-          ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
-          <button class="product-wishlist" onclick="showToast('Added to wishlist ♡')"><i class="fa-regular fa-heart"></i></button>
-          <button class="product-quick" onclick="addToCart(${p.id})">Add to Bag</button>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">${p.catLabel}</div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-stars">${stars(p.rating)} <span>(${p.reviews})</span></div>
-          <div class="product-price">
-            ${p.original ? `<span class="original">₹${p.original.toLocaleString("en-IN")}</span>` : ""}
-            ₹${p.price.toLocaleString("en-IN")}
-          </div>
-          <button class="btn-add-cart" onclick="addToCart(${p.id})">Add to Cart</button>
-        </div>
-      </div>
-    </div>
-  `,
-        )
-        .join("");
-    AOS.refresh();
-    refreshLuxuryReveals();
-}
+// function renderProducts(filter) {
+//     const grid = document.getElementById("productsGrid");
+//     const filtered =
+//         filter === "all" ? products : products.filter((p) => p.cat === filter);
+//     grid.innerHTML = filtered
+//         .map(
+//             (p, i) => `
+//     <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="${(i % 4) * 80}">
+//       <div class="product-card">
+//         <div class="product-img-wrap">
+//           <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+//           ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
+//           <button class="product-wishlist" onclick="showToast('Added to wishlist ♡')"><i class="fa-regular fa-heart"></i></button>
+//           <button class="product-quick" onclick="addToCart(${p.id})">Add to Bag</button>
+//         </div>
+//         <div class="product-info">
+//           <div class="product-cat">${p.catLabel}</div>
+//           <div class="product-name">${p.name}</div>
+//           <div class="product-stars">${stars(p.rating)} <span>(${p.reviews})</span></div>
+//           <div class="product-price">
+//             ${p.original ? `<span class="original">₹${p.original.toLocaleString("en-IN")}</span>` : ""}
+//             ₹${p.price.toLocaleString("en-IN")}
+//           </div>
+//           <button class="btn-add-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+//         </div>
+//       </div>
+//     </div>
+//   `,
+//         )
+//         .join("");
+//     AOS.refresh();
+//     refreshLuxuryReveals();
+// }
 
 function filterProducts(f, btn) {
     activeFilter = f;
