@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -39,4 +40,6 @@ Route::get('register',[AuthController::class, 'Show_register'])->name('register'
 Route::get('admin/dashboard', [AdminDashboardController ::class, 'index'])->name('admin.dashboard');
 
 Route::get('admin/category',[CategoryController::class,'index'])->name('admin.category.index');
+Route::get('admin/product',[ProductController::class,'index'])->name('admin.product.index');
+
 

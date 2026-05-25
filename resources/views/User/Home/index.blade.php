@@ -239,7 +239,7 @@
                         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
                             <div class="product-card">
                                 <div class="product-img-wrap">
-                                    <img src="{{ asset('assets/hero3.jpeg') }}" alt="{{ $product->name }}" loading="lazy" />
+                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" loading="lazy" />
                                     <span class="product-badge">New</span>
 
                                     <button class="product-wishlist">

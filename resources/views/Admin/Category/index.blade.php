@@ -1,6 +1,6 @@
 @extends('Admin.layouts.master-admin')
 
-@section('title', 'Dashboard')
+@section('title', 'Category Management')
 
 @section('content')
 
